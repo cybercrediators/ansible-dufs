@@ -2,8 +2,10 @@
 - name: Check cargo installation
   become: true
   become_user: "{{ dufs_user }}"
-  shell: command -v cargo
+  ansible.builtin.shell: 
+    cmd: command -v cargo
   register: cargo_ready
+  changed_when: "cargo_ready.rc != 0"
 
 - name: Install rust
   ansible.builtin.import_tasks: rust.yml
