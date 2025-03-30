@@ -1,0 +1,18 @@
+[Unit]
+Description=DUFS File Host
+After=network-online.target
+Wants=network-online.target
+
+StartLimitBurst=2
+StartLimitInterval=11
+
+[Service]
+User={{ dufs_user }}
+Group={{ dufs_group }}
+Restart=on-failure
+RestartSec=10
+ExecStart={{ dufs_exec }} --config {{ dufs_config_path }}/{{ dufs_config_file_name }}
+ReadWritePaths={{ dufs_config_path }}
+
+[Install]
+WantedBy=multi-user.target

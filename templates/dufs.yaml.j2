@@ -1,0 +1,64 @@
+serve-path: {{ dufs_serve_path }}
+bind: {{ dufs_bind_address }}
+port: {{ dufs_port }}
+path-prefix: {{ dufs_path_prefix }}
+{% if dufs_hidden_paths is defined %}
+hidden:
+{% for path in dufs_hidden_paths %}
+  - {{ path }}
+{% endfor %}
+{% endif %}
+{% if dufs_auth is defined %}
+auth:
+{% for auth in dufs_auth %}
+  - {{ auth }}
+{% endfor %}
+{% endif %}
+{% if dufs_allow_all is defined %}
+allow-all: {{ dufs_allow_all }}
+{% endif %}
+{% if dufs_allow_upload is defined %}
+allow-upload: {{ dufs_allow_upload }}
+{% endif %}
+{% if dufs_allow_delete is defined %}
+allow-delete: {{ dufs_allow_delete }}
+{% endif %}
+{% if dufs_allow_search is defined %}
+allow-search: {{ dufs_allow_search }}
+{% endif %}
+{% if dufs_allow_symlink is defined %}
+allow-symlink: {{ dufs_allow_symlink }}
+{% endif %}
+{% if dufs_allow_archive is defined %}
+allow-archive: {{ dufs_allow_archive }}
+{% endif %}
+{% if dufs_enable_cors is defined %}
+enable-cors: {{ dufs_enable_cors }}
+{% endif %}
+{% if dufs_render_index is defined %}
+render-index: {{ dufs_render_index }}
+{% endif %}
+{% if dufs_render_try_index is defined %}
+render-try-index: {{ dufs_render_try_index }}
+{% endif %}
+{% if dufs_render_spa is defined %}
+render-spa: {{ dufs_render_spa }}
+{% endif %}
+{% if dufs_assets_path is defined %}
+assets: {{ dufs_assets_path }}
+{% endif %}
+{% if dufs_log_format is defined %}
+log-format: {{ dufs_log_format }}
+{% endif %}
+{% if dufs_log_file_path is defined %}
+log-file: {{ dufs_log_file_path }}
+{% endif %}
+{% if dufs_compress is defined %}
+compress: {{ dufs_compress }}
+{% endif %}
+{% if dufs_tls_cert_path is defined %}
+tls-cert: {{ dufs_tls_cert_path }}
+{% endif %}
+{% if dufs_tls_key_path is defined %}
+tls-key: {{ dufs_tls_key_path }}
+{% endif %}

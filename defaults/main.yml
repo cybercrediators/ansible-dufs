@@ -1,0 +1,36 @@
+---
+dufs_user: "dufs"
+dufs_group: "dufs"
+dufs_config_path: "/home/{{ dufs_user }}/.config/dufs"
+dufs_config_file_name: "conf.yaml"
+dufs_exec: "/home/{{ dufs_user }}/.cargo/bin/dufs"
+
+# defaults from: https://github.com/sigoden/dufs
+dufs_serve_path: "'.'"
+dufs_bind_address: "0.0.0.0"
+dufs_port: "5000"
+dufs_path_prefix: "/dufs"
+#dufs_hidden_paths:
+#  - "tmp"
+#  - "'*.log'"
+#  - "'*.lock'"
+#dufs_auth:
+#  - "admin:admin@/:rw"
+#  - "user:pass@/src:rw,/share"
+#  - "'@/'"
+dufs_allow_all: true
+dufs_allow_upload: true
+dufs_allow_delete: true
+dufs_allow_search: true
+dufs_allow_symlink: true
+dufs_allow_archive: true
+dufs_enable_cors: true
+dufs_render_index: true
+dufs_render_try_index: true
+dufs_render_spa: true
+#dufs_assets: "./assets/"
+dufs_log_format: "'$remote_addr \"$request\" $status $http_user_agent'"
+dufs_log_file_path: "{{ dufs_config_path }}/dufs.log"
+dufs_compress: "low"
+#dufs_tls_cert: "tests/data/cert.pem"
+#dufs_tls_key: "tests/data/key_pkcs1.pem"

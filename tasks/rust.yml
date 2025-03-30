@@ -1,0 +1,16 @@
+---
+- name: Make sure acl is installed
+  ansible.builtin.apt:
+    name: "acl"
+    state: present
+
+- name: Install rustup
+  ansible.builtin.apt:
+    name: "rustup"
+    state: present
+
+- name: Install rust via rustup
+  become: true
+  become_user: "{{ dufs_user }}"
+  ansible.builtin.shell:
+    cmd: rustup default stable && rustup install stable

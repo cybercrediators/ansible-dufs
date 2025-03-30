@@ -1,0 +1,49 @@
+---
+- name: Check cargo installation
+  become: true
+  become_user: "{{ dufs_user }}"
+  shell: command -v cargo
+  register: cargo_ready
+
+- name: Install rust
+  ansible.builtin.import_tasks: rust.yml
+  when: not cargo_ready
+
+- name: Install dufs
+  become: true
+  become_user: "{{ dufs_user }}"
+  community.general.cargo:
+    name: "dufs"
+    state: present
+
+- name: Create dufs config folder
+  become: true
+  become_user: "{{ dufs_user }}"
+  ansible.builtin.file:
+    path: "{{ dufs_config_path }}"
+    owner: "{{ dufs_user }}"
+    group: "{{ dufs_group }}"
+    state: directory
+
+- name: Install dufs config file
+  become: true
+  become_user: "{{ dufs_user }}"
+  ansible.builtin.template:
+    src: templates/dufs.yaml.j2
+    dest: "{{ dufs_config_path }}/{{ dufs_config_file_name }}"
+    owner: "{{ dufs_user }}"
+    group: "{{ dufs_group }}"
+
+- name: Install dufs service
+  become: true
+  ansible.builtin.template:
+    src: templates/dufs.service.j2
+    dest: /etc/systemd/system/dufs.service
+  notify: reload daemon
+
+- name: Start and enable dufs service
+  become: true
+  service:
+    name: dufs
+    enabled: true
+    state: started
