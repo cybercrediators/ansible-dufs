@@ -6,10 +6,7 @@
     cmd: command -v cargo
   register: cargo_ready
   changed_when: "cargo_ready.rc != 0"
-
-- name: Install rust
-  ansible.builtin.import_tasks: rust.yml
-  when: not cargo_ready
+  failed_when: "cargo_ready.rc != 0"
 
 - name: Install dufs
   become: true
