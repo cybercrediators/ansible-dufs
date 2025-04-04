@@ -2,7 +2,7 @@
 - name: Check cargo installation
   become: true
   become_user: "{{ dufs_user }}"
-  ansible.builtin.shell: 
+  ansible.builtin.shell:
     cmd: command -v cargo
   register: cargo_ready
   changed_when: "cargo_ready.rc != 0"
@@ -22,6 +22,7 @@
     path: "{{ dufs_config_path }}"
     owner: "{{ dufs_user }}"
     group: "{{ dufs_group }}"
+    mode: "0755"
     state: directory
 
 - name: Install dufs config file
@@ -32,17 +33,19 @@
     dest: "{{ dufs_config_path }}/{{ dufs_config_file_name }}"
     owner: "{{ dufs_user }}"
     group: "{{ dufs_group }}"
+    mode: "0644"
 
 - name: Install dufs service
   become: true
   ansible.builtin.template:
     src: templates/dufs.service.j2
     dest: /etc/systemd/system/dufs.service
-  notify: reload daemon
+    mode: "0644"
+  notify: Reload daemon
 
 - name: Start and enable dufs service
   become: true
-  service:
+  ansible.builtin.service:
     name: dufs
     enabled: true
     state: started
